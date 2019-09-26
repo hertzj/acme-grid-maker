@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Grid Maker</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <form id='gridMaker' action="">
+            <h2>Acme Grid Maker</h2>
+            <input type="text" id='columns' name='columns' required> <br>
+            <input type="text" id='rows' name='rows' required> <br>
+            <input type="submit" value='Submit'>
+        </form>
+        <div class='grid'>
+            <div class='row'>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+            </div>
+            <div class='row'>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+            </div>
+        </div>
+    </body>
+    <script>
+        // function getRows() {
+        //     let rows = document.getElementById('gridMaker').value;
+        //     console.log(rows);
+        //     return false;
+        // }
+
+        const boxes = document.getElementsByClassName('cell')
+        const boxesArr = [...boxes];
+
+        boxesArr.forEach((box) => {
+            box.addEventListener('click', () => {
+                if (box.className.indexOf('selected') > -1) {
+                    box.classList.remove('selected')
+                }
+                else {
+                    box.classList.add('selected');
+                }
+            })
+        })
+
+        function getRowsAndColumns() {
+            let x = document.getElementById('gridMaker');
+            let numColumns = ''
+            let numRows = '';
+
+            for (let i = 0; i < x.length; i++) {
+                if (i % 2 === 0) {
+                    numColumns += x.elements[i].value;
+                }
+                else {
+                    numRows += x.elements[i].value;
+                }
+            }
+
+            console.log(x.element);
+        }
+
+
+    </script>
+</html>
