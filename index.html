@@ -6,68 +6,138 @@
     <body>
         <form id='gridMaker' action="">
             <h2>Acme Grid Maker</h2>
-            <input type="text" id='columns' name='columns' required> <br>
-            <input type="text" id='rows' name='rows' required> <br>
-            <input type="submit" value='Submit'>
+            <input type="text" id='columns' name='columns' required>
+            <p id='colValidate'></p>
+            <input type="text" id='rows' name='rows' required>
+            <p id='rowValidate'></p>
+            <!-- <input type="submit" value='Submit'> -->
+            <button type="button">Make Grid</button>
         </form>
-        <div class='grid'>
-            <div class='row'>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-            </div>
-            <div class='row'>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-                <div class='cell'></div>
-            </div>
+        <div class="grid">
+                
         </div>
+
     </body>
     <script>
-        // function getRows() {
-        //     let rows = document.getElementById('gridMaker').value;
-        //     console.log(rows);
+        // here is what to do
+        // once we have the number of rows and columns we
+        // use .innerHTML to modify the HTML of the grid div
+        // let's first make it work declaratively
+        // we will create an outer loop that runs the number of rows
+        // and then inside that create an inner loop that runs the number of columns
+        // each iteration of the inner loop will create a cell following
+        // the function ideas in addBoxes() below
+
+        // just need to figure out how to get the damn data!
+
+        // eg. grid.innerHTML = `<div class='cell selected'></div>`
+
+        const grid = document.querySelector('div');
+        const test = document.querySelector('h2');
+        const button = document.querySelector('button');
+        let coordinates = document.createElement('p');
+
+
+        button.addEventListener('click', () => {
+            const numColumns = document.getElementById('columns').value;
+            const numRows = document.getElementById('rows').value;
+            let text = '';            
+
+            if (isNaN(numColumns) || numColumns > 50 || numColumns < 0) {
+                text = 'columns must be between 1 and 50';
+                document.getElementById('colValidate').innerHTML = text;
+                return;
+            }
+
+            else if (isNaN(numRows) || numRows > 50 || numRows < 0) {
+                text = 'rows must be between 1 and 50';
+                document.getElementById('rowValidate').innerHTML = text;
+                return;
+            }
+
+            else 
+            document.getElementById('colValidate').innerHTML = '';
+            document.getElementById('rowValidate').innerHTML = '';
+                grid.innerHTML = '';
+                let currentX = '';
+                let currentY = '';
+                
+                for (let i = 0; i < numRows; i++) {
+                const row = document.createElement('div');
+                row.classList.add('row');
+
+                for (let j = 0; j < numColumns; j++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    let x = i;
+                    let y = j;
+                    
+                    cell.addEventListener('click', () => {
+                        if (cell.className.indexOf('selected') > -1) {
+                            cell.classList.remove('selected');
+                        }
+                        else {
+                            cell.classList.add('selected');
+                            coordinates.textContent = `rIdx: ${x} cIdx: ${y}`
+                            
+                        }
+                    })
+                    row.appendChild(cell)
+                }
+
+                grid.appendChild(row) 
+                
+            }
+            
+            grid.appendChild(coordinates);
+        })
+
+
+
+        // const addBoxes = (ev) => {
+        //     const box = document.createElement('div');
+        //     box.classList.add('cell');
+        //     // might not be able to add event listener here
+        //     box.addEventListener('click', () => {
+        //         if (box.className.indexOf('selected') > -1) {
+        //             box.classList.remove('selected');
+        //         }
+        //         else {
+        //             box.classList.add('selected');
+                    
+        //         }
+        //     })
+        //     grid.appendChild(box);
+        // }
+
+        // test.addEventListener('click', addBoxes);
+        
+        
+        // const boxes = document.getElementsByClassName('cell')
+        // const boxesArr = [...boxes];
+        
+
+        
+        // boxesArr.forEach((box) => {
+        //     box.addEventListener('click', () => {
+        //         if (box.className.indexOf('selected') > -1) {
+        //             box.classList.remove('selected')
+        //         }
+        //         else {
+        //             box.classList.add('selected');
+        //         }
+        //     })
+        // })
+
+        // function myFunction() {
+        //     let numColumns = document.getElementById('columns').value;
+        //     let numRows = document.getElementById('rows').value;
+        //     console.log(numColumns, numRows)
         //     return false;
         // }
 
-        const boxes = document.getElementsByClassName('cell')
-        const boxesArr = [...boxes];
 
-        boxesArr.forEach((box) => {
-            box.addEventListener('click', () => {
-                if (box.className.indexOf('selected') > -1) {
-                    box.classList.remove('selected')
-                }
-                else {
-                    box.classList.add('selected');
-                }
-            })
-        })
-
-        function getRowsAndColumns() {
-            let x = document.getElementById('gridMaker');
-            let numColumns = ''
-            let numRows = '';
-
-            for (let i = 0; i < x.length; i++) {
-                if (i % 2 === 0) {
-                    numColumns += x.elements[i].value;
-                }
-                else {
-                    numRows += x.elements[i].value;
-                }
-            }
-
-            console.log(x.element);
-        }
+        
 
 
     </script>
